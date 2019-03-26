@@ -5,10 +5,10 @@ import static core.BaseConfig.BASE_CONFIG;
 public interface Page {
 
     default Page navigateTo() {
-        return navigateTo();
+        return navigateTo(url());
     }
 
-    Page navigate(final String url);
+    Page navigateTo(final String url);
 
     default String url() {
         return BASE_CONFIG.url();
