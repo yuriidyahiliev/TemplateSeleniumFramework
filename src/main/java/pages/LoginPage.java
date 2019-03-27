@@ -18,6 +18,7 @@ public class LoginPage extends BasePage {
 
     @Step("Login with account: \"{account}\"")
     public SearchPage login(final Account account) {
+        navigateTo(url());
         phantomType(usernameInput, account.getUsername());
         phantomType(passwordInput, account.getPassword());
         phantomClick(signInButton);

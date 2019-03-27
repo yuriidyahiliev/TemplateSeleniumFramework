@@ -1,36 +1,46 @@
 package core;
 
+import io.github.bonigarcia.wdm.ChromeDriverManager;
+import io.github.bonigarcia.wdm.DriverManagerType;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.function.Function;
 
 import static core.utils.ElementTypeUtils.elementOf;
-import static io.github.sskorol.listeners.BaseListener.getDriverMetaData;
 import static org.mockito.Mockito.mock;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 public abstract class BasePage implements Page {
 
-    private final WebDriver driver;
+    private static InheritableThreadLocal<WebDriver> driver = new InheritableThreadLocal<>();
     private final WebDriver mockDriver;
     private final WebDriverWait wait;
     private final WebElement mockElement;
 
     public BasePage() {
-        this.driver = getDriverMetaData()._1;
-        this.wait = getDriverMetaData()._2;
+        if (getDriver() == null) {
+            driver.set(new ChromeDriver());
+        }
+
+        this.wait = new WebDriverWait(getDriver(), 10000);
         this.mockDriver = mock(WebDriver.class);
         this.mockElement = mock(WebElement.class);
     }
 
+    public static WebDriver getDriver() {
+        return driver.get();
+    }
+
     @Step("Navigate to \"{url}\"")
     public Page navigateTo(final String url) {
-        driver.get(url);
+        getDriver().get(url);
         return this;
     }
 

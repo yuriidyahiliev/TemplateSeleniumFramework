@@ -51,6 +51,7 @@ dependencies {
             "org.assertj:assertj-core:${assertjVersion}",
             "com.google.code.findbugs:findbugs:${findbugsVersion}"
     )
+    compile group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '3.3.0'
 }
 
 task wrapper(type: Wrapper) {

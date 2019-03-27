@@ -12,8 +12,8 @@ import java.util.function.Function;
 public enum UiCondition {
 
     visible(ExpectedConditions::visibilityOfElementLocated),
-    present(ExpectedConditions::presenceOfElementLocated),
     enabled((Function<By, ExpectedCondition<?>>) ExpectedConditions::elementToBeClickable),
+    present(ExpectedConditions::presenceOfElementLocated),
     allVisible(ExpectedConditions::visibilityOfAllElementsLocatedBy),
     allPresent(ExpectedConditions::presenceOfAllElementsLocatedBy),
     valueToBe((BiFunction<By, String, ExpectedCondition<?>>) ExpectedConditions::textToBe);
