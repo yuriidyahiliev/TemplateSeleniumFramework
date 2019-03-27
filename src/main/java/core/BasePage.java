@@ -26,7 +26,7 @@ public abstract class BasePage implements Page {
 
     public BasePage() {
         if (getDriver() == null) {
-            driver.set(new ChromeDriver());
+            driver.set(BrowsersFactory.CHROME.create());
         }
 
         this.wait = new WebDriverWait(getDriver(), 10000);
